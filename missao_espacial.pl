@@ -191,16 +191,10 @@ selecionar_foguete(Origem, Carga, 0, Destino, Foguete) :-
     Carga =< CargaMax,
     DVFoguete >= DVNecessario.
 
-% ------------------------------------------------------------
-% VERIFICACAO DE VIABILIDADE
-% ------------------------------------------------------------
 missao_viavel(Origem, Destino, Carga, Tripulacao) :-
     delta_v(Origem, Destino, _),
     selecionar_foguete(Origem, Carga, Tripulacao, Destino, _).
 
-% ------------------------------------------------------------
-% DIAGNOSTICO — explica por que a missao e inviavel
-% ------------------------------------------------------------
 diagnostico_inviavel(_, Destino, _, _) :-
     \+ delta_v(Origem, Destino, _),
     write('  >> Destino desconhecido ou sem rota mapeada.'), nl.
@@ -216,28 +210,22 @@ diagnostico_inviavel(_, Destino, Carga, Tripulacao) :-
     write('     - Verifique se ha foguete com tripulacao suficiente.'), nl,
     format('     - Delta-v necessario: ~w km/s~n', [DVNecessario]).
 
-% ------------------------------------------------------------
-% EXIBICAO DE ALERTAS
-% ------------------------------------------------------------
+
 exibir_alertas(Foguete, Destino) :-
     forall(
         alerta(Foguete, Destino, Msg),
         (write('  '), write(Msg), nl)
     ).
 
-% ------------------------------------------------------------
-% EXIBICAO DE ETAPAS
-% ------------------------------------------------------------
+
 exibir_etapas([], _).
 exibir_etapas([H|T], N) :-
     format('    Etapa ~w: ~w~n', [N, H]),
     N1 is N + 1,
     exibir_etapas(T, N1).
 
-% ------------------------------------------------------------
-% MOTOR PRINCIPAL — PLANEJAR MISSAO
+
 % planejar_missao(+Origem, +Destino, +CargaKg, +Tripulacao)
-% ------------------------------------------------------------
 planejar_missao(Origem, Destino, Carga, Tripulacao) :-
     nl,
     write('============================================'), nl,
@@ -249,7 +237,7 @@ planejar_missao(Origem, Destino, Carga, Tripulacao) :-
     format('  Tripulacao:  ~w pessoas~n', [Tripulacao]),
     write('--------------------------------------------'), nl,
     (   missao_viavel(Origem, Destino, Carga, Tripulacao)
-    ->  % MISSAO VIAVEL
+    ->  % VIAVEL
         selecionar_foguete(Origem, Carga, Tripulacao, Destino, Foguete),
         delta_v(Origem, Destino, DV),
         duracao(Origem, Destino, Dias),
@@ -265,7 +253,7 @@ planejar_missao(Origem, Destino, Carga, Tripulacao) :-
         write('--------------------------------------------'), nl,
         write('  ALERTAS:'), nl,
         exibir_alertas(Foguete, Destino)
-    ;   % MISSAO INVIAVEL
+    ;   % INVIAVEL
         write('  STATUS: MISSAO INVIAVEL'), nl,
         write('--------------------------------------------'), nl,
         write('  MOTIVO:'), nl,
@@ -273,9 +261,7 @@ planejar_missao(Origem, Destino, Carga, Tripulacao) :-
     ),
     write('============================================'), nl, nl.
 
-% ------------------------------------------------------------
-% LISTAR TODOS OS DESTINOS POSSIVEIS A PARTIR DA TERRA
-% ------------------------------------------------------------
+
 destinos_disponiveis :-
     nl,
     write('Destinos disponiveis a partir da Terra:'), nl,
@@ -284,9 +270,6 @@ destinos_disponiveis :-
         format('  -> ~w  (delta-v: ~w km/s)~n', [Destino, DV])
     ), nl.
 
-% ------------------------------------------------------------
-% LISTAR TODOS OS FOGUETES DISPONIVEIS
-% ------------------------------------------------------------
 foguetes_disponiveis :-
     nl,
     write('Foguetes disponiveis:'), nl,
@@ -296,12 +279,10 @@ foguetes_disponiveis :-
                [Nome, Carga, DV, Trip, Status])
     ), nl.
 
-% ------------------------------------------------------------
-% EXEMPLOS PRONTOS PARA APRESENTACAO
-% ------------------------------------------------------------
+
 demo :-
     write('=== DEMO: MISSOES DE EXEMPLO ==='), nl,
     planejar_missao(terra, lua,     5000,  3),
     planejar_missao(terra, marte,   10000, 4),
     planejar_missao(terra, jupiter, 3000,  0),
-    planejar_missao(terra, marte,   200000, 6).  % inviavel — carga demais
+    planejar_missao(terra, marte,   200000, 6).  

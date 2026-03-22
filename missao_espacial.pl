@@ -19,7 +19,7 @@ delta_v(terra, europa, 10.8).
 
 delta_v(lua, marte,   2.1).
 delta_v(lua, terra, 0.8).
-delta_v(lua, venus, 2.0)
+delta_v(lua, venus, 2.0).
 delta_v(lua, jupiter, 5.2).
 delta_v(lua, saturno, 6.1).
 delta_v(lua, europa, 6.2).
@@ -89,16 +89,35 @@ orbita(saturno, titan, 25).
 orbita(titan, saturno, 25).
 
 viagem_base(terra, marte, 259).
-viagem_base(marte, terra, 259).
+viagem_base(terra, venus, 110).
 viagem_base(terra, jupiter, 600).
-viagem_base(jupiter, terra, 600).
 viagem_base(terra, saturno, 1200).
-viagem_base(saturno, terra, 1200).
+
 viagem_base(marte, jupiter, 1000).
+viagem_base(marte, terra, 259).
+viagem_base(marte, venus, 218).
+viagem_base(marte, saturno, 2389).
+
+viagem_base(venus, marte, 218).
+viagem_base(venus, terra, 110).
+viagem_base(venus, jupiter, 931).
+viagem_base(venus, saturno, 2135).
+
 viagem_base(jupiter, marte, 1000).
+viagem_base(jupiter, terra, 600).
+viagem_base(jupiter, saturno, 3672).
+viagem_base(jupiter, venus, 931).
+
+viagem_base(saturno, terra, 1200).
+viagem_base(saturno, marte, 2389).
+viagem_base(saturno, jupiter, 3672).
+viagem_base(saturno, venus, 2135).
 
 duracao(Origem, Destino, TempoTotal) :-
     viagem_base(Origem, Destino, TempoTotal).
+
+duracao(Origem, Destino, TempoTotal) :-
+    orbita(Origem, Destino, TempoTotal).
 
 duracao(Origem, Satelite, TempoTotal) :-
     orbita(PlanetaDono, Satelite, TempoLocal),
@@ -195,11 +214,11 @@ missao_viavel(Origem, Destino, Carga, Tripulacao) :-
     delta_v(Origem, Destino, _),
     selecionar_foguete(Origem, Carga, Tripulacao, Destino, _).
 
-diagnostico_inviavel(_, Destino, _, _) :-
+diagnostico_inviavel(Origem, Destino, _, _) :-
     \+ delta_v(Origem, Destino, _),
     write('  >> Destino desconhecido ou sem rota mapeada.'), nl.
 
-diagnostico_inviavel(_, Destino, Carga, Tripulacao) :-
+diagnostico_inviavel(Origem, Destino, Carga, Tripulacao) :-
     delta_v(Origem, Destino, DVNecessario),
     \+ (foguete(_, CargaMax, DVFoguete, TripMax, _),
         Carga =< CargaMax,

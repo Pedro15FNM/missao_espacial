@@ -9,54 +9,60 @@ corpo(saturno, altissimo, sim, planeta).
 corpo(titan, baixo, sim, satelite).
 
 % delta_v(Origem, Destino, DeltaV)
-delta_v(terra, lua,     3.9).
-delta_v(terra, marte,   5.6).
-delta_v(terra, venus,   5.2).
-delta_v(terra, jupiter, 8.8).
-delta_v(terra, saturno, 10.3).
-delta_v(terra, titan, 12.1).
-delta_v(terra, europa, 10.8).
+delta_v(terra, lua,      3.9).
+delta_v(terra, marte,    5.7).
+delta_v(terra, venus,    6.8).
+delta_v(terra, jupiter, 17.9).
+delta_v(terra, saturno, 14.6).
+delta_v(terra, titan,   12.1). % Mantido original (não consta no mapa)
+delta_v(terra, europa,  10.8). % Mantido original (não consta no mapa)
 
-delta_v(lua, marte,   2.1).
-delta_v(lua, terra, 0.8).
-delta_v(lua, venus, 2.0).
-delta_v(lua, jupiter, 5.2).
-delta_v(lua, saturno, 6.1).
-delta_v(lua, europa, 6.2).
-delta_v(lua, titan, 7.1).
+% LUA
+delta_v(lua, terra,      3.9).
+delta_v(lua, marte,      9.7).
+delta_v(lua, venus,     10.7).
+delta_v(lua, jupiter,   21.9).
+delta_v(lua, saturno,   18.6).
+delta_v(lua, europa,     6.2). % Mantido original
+delta_v(lua, titan,      7.1). % Mantido original
 
-delta_v(marte, terra,   1.5).
-delta_v(marte, lua,     2.2).
-delta_v(marte, venus,   2.7).
-delta_v(marte, jupiter, 3.5).
-delta_v(marte, europa,  5.5).
-delta_v(marte, saturno, 4.9).
-delta_v(marte, titan,   6.7).
+% MARTE
+delta_v(marte, terra,    5.7).
+delta_v(marte, lua,      9.7).
+delta_v(marte, venus,    6.1).
+delta_v(marte, jupiter, 17.2).
+delta_v(marte, saturno, 13.9).
+delta_v(marte, europa,   5.5). % Mantido original
+delta_v(marte, titan,    6.7). % Mantido original
 
-delta_v(jupiter, europa, 2.0).
-delta_v(jupiter, terra,   6.3).
-delta_v(jupiter, marte,   5.0).
-delta_v(jupiter, saturno, 2.8).
-delta_v(jupiter, titan,  4.6).
-delta_v(jupiter, lua, 5.6).
-delta_v(jupiter, venus, 7.7).
+% JÚPITER
+delta_v(jupiter, terra,   17.9).
+delta_v(jupiter, lua,     21.9).
+delta_v(jupiter, marte,   17.2).
+delta_v(jupiter, saturno, 26.1).
+delta_v(jupiter, venus,   18.3).
+delta_v(jupiter, europa,   2.0). % Mantido original
+delta_v(jupiter, titan,    4.6). % Mantido original
 
-delta_v(saturno, titan,  1.8).
-delta_v(saturno, terra,  7.3).
-delta_v(saturno, jupiter, 3.2).
-delta_v(saturno, marte, 5.8).
-delta_v(saturno, lua, 6.5).
-delta_v(saturno, venus, 12.5).
-delta_v(saturno, europa, 5.2).
+% SATURNO
+delta_v(saturno, terra,   14.6).
+delta_v(saturno, lua,     18.6).
+delta_v(saturno, marte,   13.9).
+delta_v(saturno, jupiter, 26.1).
+delta_v(saturno, venus,   15.0).
+delta_v(saturno, titan,    1.8). % Mantido original
+delta_v(saturno, europa,   5.2). % Mantido original
 
-delta_v(venus, terra,   1.3).  
-delta_v(venus, lua,     2.6).
-delta_v(venus, marte,   3.2).
-delta_v(venus, jupiter, 6.0).
-delta_v(venus, saturno, 7.5).
-delta_v(venus, europa,  8.0).  
-delta_v(venus, titan,   9.3).
+% VÊNUS
+delta_v(venus, terra,    6.8).  
+delta_v(venus, lua,     10.7).
+delta_v(venus, marte,    6.1).
+delta_v(venus, jupiter, 18.3).
+delta_v(venus, saturno, 15.0).
+delta_v(venus, europa,   8.0). % Mantido original
+delta_v(venus, titan,    9.3). % Mantido original
 
+% EUROPA (Valores originais mantidos)
 delta_v(europa, jupiter, 2.0).  
 delta_v(europa, terra,   8.3).  
 delta_v(europa, lua,     7.6).  
@@ -65,13 +71,14 @@ delta_v(europa, saturno, 4.8).
 delta_v(europa, titan,   6.6). 
 delta_v(europa, venus,   9.7).
 
+% TITAN (Valores originais mantidos)
 delta_v(titan, saturno, 1.8).   
 delta_v(titan, terra,   9.1).   
 delta_v(titan, lua,     8.3).  
 delta_v(titan, marte,   7.6).   
 delta_v(titan, jupiter, 5.0).  
 delta_v(titan, europa,  7.0).  
-delta_v(titan, venus,   14.3).
+delta_v(titan, venus,  14.3).
 
 % foguete(Nome, CargaMaxKg, DeltaVKms, TripulacaoMax, Status)
 foguete(falcon9,   22500,  8.0, 7,   operacional).
@@ -179,7 +186,6 @@ etapas(jupiter, europa, [
     'Missao de superficie ou orbita'
 ]).
 
-
 etapas(_, _, [
     'Lancamento e saida da orbita de origem',
     'Cruceiro interplanetario',
@@ -229,20 +235,17 @@ diagnostico_inviavel(Origem, Destino, Carga, Tripulacao) :-
     write('     - Verifique se ha foguete com tripulacao suficiente.'), nl,
     format('     - Delta-v necessario: ~w km/s~n', [DVNecessario]).
 
-
 exibir_alertas(Foguete, Destino) :-
     forall(
         alerta(Foguete, Destino, Msg),
         (write('  '), write(Msg), nl)
     ).
 
-
 exibir_etapas([], _).
 exibir_etapas([H|T], N) :-
     format('    Etapa ~w: ~w~n', [N, H]),
     N1 is N + 1,
     exibir_etapas(T, N1).
-
 
 % planejar_missao(+Origem, +Destino, +CargaKg, +Tripulacao)
 planejar_missao(Origem, Destino, Carga, Tripulacao) :-
@@ -297,7 +300,6 @@ foguetes_disponiveis :-
         format('  ~w | carga: ~w kg | delta-v: ~w km/s | tripulacao: ~w | status: ~w~n',
                [Nome, Carga, DV, Trip, Status])
     ), nl.
-
 
 demo :-
     write('=== DEMO: MISSOES DE EXEMPLO ==='), nl,

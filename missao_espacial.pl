@@ -14,55 +14,49 @@ delta_v(terra, marte,    5.7).
 delta_v(terra, venus,    6.8).
 delta_v(terra, jupiter, 17.9).
 delta_v(terra, saturno, 14.6).
-delta_v(terra, titan,   12.1). % Mantido original (não consta no mapa)
-delta_v(terra, europa,  10.8). % Mantido original (não consta no mapa)
+delta_v(terra, titan,   12.1). 
+delta_v(terra, europa,  10.8).
 
-% LUA
 delta_v(lua, terra,      3.9).
 delta_v(lua, marte,      9.7).
 delta_v(lua, venus,     10.7).
 delta_v(lua, jupiter,   21.9).
 delta_v(lua, saturno,   18.6).
-delta_v(lua, europa,     6.2). % Mantido original
-delta_v(lua, titan,      7.1). % Mantido original
+delta_v(lua, europa,     6.2). 
+delta_v(lua, titan,      7.1). 
 
-% MARTE
 delta_v(marte, terra,    5.7).
 delta_v(marte, lua,      9.7).
 delta_v(marte, venus,    6.1).
 delta_v(marte, jupiter, 17.2).
 delta_v(marte, saturno, 13.9).
-delta_v(marte, europa,   5.5). % Mantido original
-delta_v(marte, titan,    6.7). % Mantido original
+delta_v(marte, europa,   5.5). 
+delta_v(marte, titan,    6.7). 
 
-% JÚPITER
 delta_v(jupiter, terra,   17.9).
 delta_v(jupiter, lua,     21.9).
 delta_v(jupiter, marte,   17.2).
 delta_v(jupiter, saturno, 26.1).
 delta_v(jupiter, venus,   18.3).
-delta_v(jupiter, europa,   2.0). % Mantido original
-delta_v(jupiter, titan,    4.6). % Mantido original
+delta_v(jupiter, europa,   2.0). 
+delta_v(jupiter, titan,    4.6). 
 
-% SATURNO
 delta_v(saturno, terra,   14.6).
 delta_v(saturno, lua,     18.6).
 delta_v(saturno, marte,   13.9).
 delta_v(saturno, jupiter, 26.1).
 delta_v(saturno, venus,   15.0).
-delta_v(saturno, titan,    1.8). % Mantido original
-delta_v(saturno, europa,   5.2). % Mantido original
+delta_v(saturno, titan,    1.8).
+delta_v(saturno, europa,   5.2). 
 
-% VÊNUS
 delta_v(venus, terra,    6.8).  
 delta_v(venus, lua,     10.7).
 delta_v(venus, marte,    6.1).
 delta_v(venus, jupiter, 18.3).
 delta_v(venus, saturno, 15.0).
-delta_v(venus, europa,   8.0). % Mantido original
-delta_v(venus, titan,    9.3). % Mantido original
+delta_v(venus, europa,   8.0). 
+delta_v(venus, titan,    9.3). 
 
-% EUROPA (Valores originais mantidos)
 delta_v(europa, jupiter, 2.0).  
 delta_v(europa, terra,   8.3).  
 delta_v(europa, lua,     7.6).  
@@ -71,7 +65,6 @@ delta_v(europa, saturno, 4.8).
 delta_v(europa, titan,   6.6). 
 delta_v(europa, venus,   9.7).
 
-% TITAN (Valores originais mantidos)
 delta_v(titan, saturno, 1.8).   
 delta_v(titan, terra,   9.1).   
 delta_v(titan, lua,     8.3).  

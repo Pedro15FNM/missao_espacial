@@ -267,21 +267,21 @@ planejar_missao(Origem, Destino, Carga, Tripulacao) :-
         exibir_etapas(Etapas, 1),
         write('--------------------------------------------'), nl,
         write('  ALERTAS:'), nl,
-        exibir_alertas(Foguete, Destino)
-    ;   % INVIAVEL
-        write('  STATUS: MISSAO INVIAVEL'), nl,
-        write('--------------------------------------------'), nl,
-        write('  MOTIVO:'), nl,
+        exibir_alertas(Foguete, Destino);   
+        % INVIAVEL
+        write('-------------------------------------------'), nl,
+        write('   STATUS: MISSAO INVIAVEL'), nl,
+        write('- MOTIVO:'), nl,
         diagnostico_inviavel(Origem, Destino, Carga, Tripulacao)
     ),
     write('============================================'), nl, nl.
 
 
-destinos_disponiveis :-
+destinos_disponiveis(Origem):-
     nl,
-    write('Destinos disponiveis a partir da Terra:'), nl,
+    write('Destinos disponiveis:'), nl,
     forall(
-        delta_v(terra, Destino, DV),
+        delta_v(Origem, Destino, DV),
         format('  -> ~w  (delta-v: ~w km/s)~n', [Destino, DV])
     ), nl.
 
